@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="dlg_radius_size_8">8dp</dimen>
+    <dimen name="top_action_bar">18sp</dimen>
+    <dimen name="bottom_nav">16sp</dimen>
+    <dimen name="button_font">14sp</dimen>
+    <dimen name="settings_font">16sp</dimen>
+</resources>

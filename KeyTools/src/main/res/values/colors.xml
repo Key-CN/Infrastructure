@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+
+    <color name="app_main_color">#07C49C</color>
+    <color name="app_main_color_pressed">#0c8168</color>
+    <color name="app_main_color_selected">#0c8168</color>
+
+    <color name="default_hint_color">#989CA5</color>
+    <color name="default_background_color">#F6F6F6</color>
+    <color name="default_disable_color">#FFBCBEC2</color>
+    <color name="transparent_disable_color">#60BCBEC2</color>
+    <color name="default_divider_color">#DCE4ED</color>
+    <color name="toast">#FD4A2E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="settingsFont">#1C202D</color>
+    <color name="cut_line">#E1E9F0</color>
+</resources>
