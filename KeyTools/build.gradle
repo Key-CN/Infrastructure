@@ -1,14 +1,17 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
 
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -17,18 +20,51 @@ android {
         }
     }
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
+    // 兼容包
+    api "com.android.support:appcompat-v7:$supportVersion"
+    api "com.android.support:support-v4:$supportVersion"
+    // 视觉包
+    api "com.android.support:design:$supportVersion"
     //ButterKnife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    api "com.jakewharton:butterknife:$butterknifeVersion"
+    // 注解库，使用注解必须使用，lib中不使用注解可以不使用，主APP必须使用才能使用注解
+    //annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
     // Logger
     api 'com.orhanobut:logger:2.2.0'
+    // RxJava 2
+    api "io.reactivex.rxjava2:rxjava:2.1.16"
+    // RxAndroid 2
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    // Retrofit 2
+    api "com.squareup.retrofit2:retrofit:$retrofit2Version"
+    // Retrofit2 Converters and Adapters
+    api "com.squareup.retrofit2:converter-gson:$retrofit2Version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit2Version"
+    // RxPermissions
+    api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
+}
+
+publish {
+    userOrg = 'keyssio'
+    // groupId拼接artifactId为最终的地址名
+    groupId = 'io.keyss'
+    //项目名称
+    artifactId = 'KeyTools'
+    //版本号
+    publishVersion = rootProject.ext.versionName
+    desc = '基础架构库'
+    website = 'http://keyss.io/'
 }
