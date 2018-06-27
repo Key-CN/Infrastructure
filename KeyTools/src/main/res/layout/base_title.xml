@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_title_app"
+    android:id="@+id/ll_base_title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,13 +12,13 @@
 
         <ImageButton
             android:id="@+id/ib_back_title"
-            android:padding="6dp"
+            style="?android:attr/actionButtonStyle"
             android:layout_width="33dp"
             android:layout_height="33dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            style="?android:attr/actionButtonStyle"
+            android:padding="6dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_back_title" />
 
@@ -27,28 +27,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="标题名"
-            android:textColor="@color/settingsFont"
+            android:textColor="@color/base_title_color"
             android:textSize="@dimen/top_action_bar"
             android:textStyle="bold" />
 
-        <!-- android:background="@drawable/flat_btn_selector" 绿色背景选择器-->
         <TextView
             android:id="@+id/tv_function_title"
+            style="?android:attr/actionButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            style="?android:attr/actionButtonStyle"
-            android:text="编辑"
-            android:textColor="@color/settingsFont"
+            android:textColor="@color/base_title_color"
             android:textSize="@dimen/button_font" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/cut_line" />
+        android:background="@color/base_cut_line" />
 
 </LinearLayout>

@@ -1,12 +1,9 @@
 package io.keyss.keytools.utils;
 
 /**
- *
- * @author vondear
- * @date 2016/1/24
- * 常量工具类
+ * @author MrKey
  */
-public class RxConstTool {
+public class KeyConstants {
 
     /******************** 存储相关常量 ********************/
     /**
