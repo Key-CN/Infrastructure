@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Random;
 
@@ -33,17 +36,14 @@ public class SpeechActivity extends BaseActivity {
         return R.layout.activity_speech;
     }
 
-    int[] resIds = {R.layout.speech_0, R.layout.speech_1, R.layout.speech_2, R.layout.speech_3, R.layout.speech_4, R.layout.speech_5,
-            R.layout.speech_6, R.layout.speech_6_1, R.layout.speech_6_2, R.layout.speech_6_3, R.layout.speech_6_4,
-            R.layout.speech_6_5, R.layout.speech_6_6, R.layout.speech_7, R.layout.speech_8, R.layout.speech_9, R.layout.speech_10,
-            R.layout.speech_11, R.layout.speech_12, R.layout.speech_13, R.layout.speech_14, R.layout.speech_15,
-            R.layout.speech_9999, R.layout.speech_99999};
+    int[] resIds = {R.layout.speech_0, R.layout.speech_1, R.layout.speech_3,
+            R.layout.speech_4};
     View[] resViews;
 
     @Override
     protected void initLayout(@Nullable Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= 19) {
-            //for new api versions.
+            //for new api versions. View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY 这个选项不加点击会出现
             View decorView = getWindow().getDecorView();
             int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
@@ -64,8 +64,12 @@ public class SpeechActivity extends BaseActivity {
             @Override
             public Object instantiateItem(@NonNull ViewGroup container, int position) {
                 container.addView(resViews[position] != null ? resViews[position] : (resViews[position] = factory.inflate(resIds[position], null)));
-                if (position == resIds.length - 1) {
+                if (resIds[position] == R.layout.speech_4) {
                     mRxHeartLayout = resViews[position].findViewById(R.id.heart_layout);
+                } else if (resIds[position] == R.layout.speech_3) {
+                    Glide.with(resViews[position])
+                            .load(R.drawable.a16)
+                            .into(((ImageView) resViews[position].findViewById(R.id.iv_gif)));
                 }
                 return resViews[position];
             }
