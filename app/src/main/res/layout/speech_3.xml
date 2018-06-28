@@ -6,16 +6,18 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:padding="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="第三种解释"
+        android:text="我的解释"
         android:textColor="@android:color/black"
-        android:textSize="38sp" />
+        android:textSize="48sp" />
 
     <TextView
+        android:padding="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="满足人们精神需求的意识形态。"
         android:textColor="@android:color/black"
-        android:textSize="22sp" />
+        android:textSize="38sp" />
 </LinearLayout>

@@ -6,13 +6,15 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="第二种解释"
         android:textColor="@android:color/black"
-        android:textSize="34sp" />
+        android:textSize="38sp" />
 
     <TextView
+        android:padding="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="艺术，迄今还没有公认的定义。通常认为，艺术是用形象来反映现实但比现实有典型性的社会意识形态，包括文学、书法、绘画、雕塑、建筑、音乐、舞蹈、戏剧、电影、曲艺、电子游戏（第九艺术）等。艺术离不开人，真正的艺术是一个人对自身精神与情感的抒发与表达，所以谈论艺术，不能不从精神与心理层面去考查。真正的艺术是能够陶冶情操、培养性情的，比如古人实践了二千年的艺术——唐诗、宋词、昆曲等。"

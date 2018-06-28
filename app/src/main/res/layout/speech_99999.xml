@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="想象力"
+        android:textColor="#00c417"
+        android:textSize="133sp" />
+
+    <io.keyss.keytools.widget.like.RxHeartLayout
+        android:id="@+id/heart_layout"
+        android:layout_width="200dp"
+        android:onClick="like"
+        android:layout_marginBottom="90dp"
+        android:layout_marginEnd="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_height="match_parent" />
+</RelativeLayout>

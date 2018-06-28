@@ -1,10 +1,13 @@
 package io.keyss.keytools.utils;
 
+import android.Manifest;
+import android.app.Activity;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.Handler;
 
 import com.orhanobut.logger.Logger;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +17,7 @@ import java.io.IOException;
  * Time: 2018/6/27 18:31
  * Description:
  */
-public class KeyAudioRecoderUtil {
+public class KeyAudioRecorderUtil {
     private MediaRecorder mMediaRecorder;
     /**
      * 文件路径
@@ -39,6 +42,8 @@ public class KeyAudioRecoderUtil {
      * 录音监听回调
      */
     private OnAudioStatusUpdateListener audioStatusUpdateListener;
+    private RxPermissions mRxPermissions;
+    private boolean isRunning;
 
     private final Handler mHandler = new Handler();
     private Runnable mUpdateMicStatusTimer = new Runnable() {
@@ -52,12 +57,16 @@ public class KeyAudioRecoderUtil {
     /**
      * 文件存储默认sdcard/record
      */
-    public KeyAudioRecoderUtil() {
+    public KeyAudioRecorderUtil(Activity activity) {
         //默认保存路径为/sdcard/record/下
-        this(Environment.getExternalStorageDirectory() + "/record/");
+        this(activity, Environment.getExternalStorageDirectory() + "/record/");
     }
 
-    public KeyAudioRecoderUtil(String filePath) {
+    public KeyAudioRecorderUtil(Activity activity, String filePath) {
+
+        mRxPermissions = new RxPermissions(activity);
+
+
         File path = new File(filePath);
         if (!path.exists()) {
             path.mkdirs();
@@ -71,41 +80,51 @@ public class KeyAudioRecoderUtil {
      *
      * @return 录音保存的路径
      */
-    public String startRecord() {
-        // 开始录音
-        /* ①Initial：实例化MediaRecorder对象 */
-        if (mMediaRecorder == null) {
-            mMediaRecorder = new MediaRecorder();
+    public void startRecord() {
+        if (isRunning) {
+            KeyToastUtil.showToast("当前正在录制");
+            return;
         }
-        try {
-            /* ②setAudioSource/setVedioSource */
-            // 设置麦克风
-            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            /* ②设置音频文件的编码：AAC/AMR_NB/AMR_MB/Default 声音的（波形）的采样 */
-            mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-            /*
-             * ②设置输出文件的格式：THREE_GPP/MPEG-4/RAW_AMR/Default THREE_GPP(3gp格式
-             * ，H263视频/ARM音频编码)、MPEG-4、RAW_AMR(只支持音频且音频编码要求为AMR_NB)
-             */
-            mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mRxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)
+                .subscribe(granted -> {
+                    if (granted) {
+                        Logger.e("开始");
+                        // 开始录音
+                        if (mMediaRecorder == null) {
+                            mMediaRecorder = new MediaRecorder();
+                        }
 
-            filePath = FolderPath + System.currentTimeMillis() + ".amr";
-            /* ③准备 */
-            mMediaRecorder.setOutputFile(filePath);
-            mMediaRecorder.setMaxDuration(MAX_LENGTH);
-            mMediaRecorder.prepare();
-            /* ④开始 */
-            mMediaRecorder.start();
-            // AudioRecord audioRecord.
-            /* 获取开始时间* */
-            startTime = System.currentTimeMillis();
-            updateMicStatus();
-            Logger.e("startTime" + startTime);
-            return filePath;
-        } catch (IllegalStateException | IOException e) {
-            Logger.e("call startAmr(File mRecAudioFile) failed!" + e.getMessage());
-            return null;
-        }
+                        try {
+                            /* setAudioSource/setVedioSource */
+                            // 设置麦克风
+                            mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                            /* 设置音频文件的编码：AAC/AMR_NB/AMR_MB/Default 声音的（波形）的采样 */
+                            mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+                            /*
+                             * 设置输出文件的格式：THREE_GPP/MPEG-4/RAW_AMR/Default THREE_GPP(3gp格式
+                             * ，H263视频/ARM音频编码)、MPEG-4、RAW_AMR(只支持音频且音频编码要求为AMR_NB)
+                             */
+                            mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+                            filePath = FolderPath + System.currentTimeMillis() + ".amr";
+                            /* 准备 */
+                            mMediaRecorder.setOutputFile(filePath);
+                            mMediaRecorder.setMaxDuration(MAX_LENGTH);
+                            mMediaRecorder.prepare();
+                            /* 开始 */
+                            mMediaRecorder.start();
+                            // AudioRecord audioRecord.
+                            /* 获取开始时间* */
+                            startTime = System.currentTimeMillis();
+                            updateMicStatus();
+                            isRunning = true;
+                        } catch (IllegalStateException | IOException e) {
+                            Logger.e("call startAmr(File mRecAudioFile) failed!" + e.getMessage());
+                        }
+                    } else {
+                        KeyToastUtil.showToast("获取权限失败，无法使用录音功能");
+                    }
+                });
     }
 
     /**
@@ -114,6 +133,9 @@ public class KeyAudioRecoderUtil {
      * @return 录音时长
      */
     public long stopRecord() {
+        if (!isRunning) {
+            return 0;
+        }
         if (mMediaRecorder == null) {
             return 0L;
         }
@@ -140,6 +162,7 @@ public class KeyAudioRecoderUtil {
             filePath = "";
             Logger.e("stopRecord error: " + e.getMessage());
         }
+        isRunning = false;
         return endTime - startTime;
     }
 
@@ -147,6 +170,12 @@ public class KeyAudioRecoderUtil {
      * 取消录音
      */
     public void cancelRecord() {
+        if (!isRunning) {
+            return;
+        }
+        if (mMediaRecorder == null) {
+            return;
+        }
         try {
             mMediaRecorder.stop();
             mMediaRecorder.reset();
@@ -162,6 +191,7 @@ public class KeyAudioRecoderUtil {
             file.delete();
         }
         filePath = "";
+        isRunning = false;
     }
 
     public void setOnAudioStatusUpdateListener(OnAudioStatusUpdateListener audioStatusUpdateListener) {

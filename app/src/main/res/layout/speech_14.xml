@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:src="@drawable/a7"
+        android:src="@drawable/a13"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

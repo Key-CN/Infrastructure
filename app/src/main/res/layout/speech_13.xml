@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:textSize="28sp"
+        android:padding="10dp"
+        android:layout_marginTop="30dp"
+        android:text="最后结合起来举个例子"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="请求接口，获取用户数据
+
+请求获取数据接口之前，必须先获取token
+
+程序取到的 User 并不应该直接显示，而是需要先与数据库中的数据进行比对和修正后再显示"
+        android:textSize="26sp" />
+
+</LinearLayout>

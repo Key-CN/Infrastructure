@@ -5,4 +5,32 @@
     android:gravity="center_horizontal"
     android:layout_height="match_parent">
 
+
+    <TextView
+        android:layout_marginTop="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="API 解析"
+        android:textColor="#000"
+        android:textSize="40sp" />
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="6dp"
+        android:text="1. 概念：扩展的观察者模式
+\n
+RxJava 的异步实现，是通过一种扩展的观察者模式来实现的。
+\n\n
+观察者模式（跳过）
+\n\n
+RxJava 的观察者模式（重点）
+\n
+RxJava 有四个基本概念：Observable (可观察者，即被观察者)、 Observer (观察者)、 subscribe (订阅)、事件。Observable 和 Observer 通过 subscribe() 方法实现订阅关系，从而 Observable 可以在需要的时候发出事件来通知 Observer。
+\n
+与传统观察者模式不同， RxJava 的事件回调方法除了普通事件 onNext() （相当于 onClick() / onEvent()）之外，还定义了两个特殊的事件：onCompleted() 和 onError()。" />
+
 </LinearLayout>

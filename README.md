@@ -1,13 +1,10 @@
-# Infrastructure    [ ![Download](https://api.bintray.com/packages/keyssio/maven/KeyTools/images/download.svg) ](https://bintray.com/keyssio/maven/KeyTools/_latestVersion)
+# Infrastructure
+
+[ ![Download](https://api.bintray.com/packages/keyssio/maven/KeyTools/images/download.svg) ](https://bintray.com/keyssio/maven/KeyTools/_latestVersion)
 
 基础项目框架，工具类
 
 ---
-
-
-
-
- ---
 
     Copyright 2018 Key
 
