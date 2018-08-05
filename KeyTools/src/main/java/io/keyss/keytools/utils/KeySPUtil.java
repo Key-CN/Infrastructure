@@ -31,7 +31,7 @@ public class KeySPUtil {
 
     public static void init(Context context, String name) {
         if (mSharedPreferences == null) {
-            mSharedPreferences = context.getApplicationContext().getSharedPreferences(name, Context.MODE_PRIVATE);
+            mSharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE);
         }
     }
 
@@ -41,5 +41,13 @@ public class KeySPUtil {
 
     public static void save(String key, String value) {
         mSharedPreferences.edit().putString(key, value).apply();
+    }
+
+    public static String get() {
+        return mSharedPreferences.getString(DEFAULT_KEY_NAME, "");
+    }
+
+    public static String get(String key) {
+        return mSharedPreferences.getString(key, "");
     }
 }

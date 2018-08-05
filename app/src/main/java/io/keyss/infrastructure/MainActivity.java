@@ -4,33 +4,43 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
-import io.keyss.infrastructure.speech.SpeechActivity;
-import io.keyss.keytools.utils.KeyAudioRecorderUtil;
+import com.orhanobut.logger.Logger;
 
+import io.keyss.keytools.utils.KeySPUtil;
+
+/**
+ * @author MrKey
+ */
 public class MainActivity extends AppCompatActivity {
 
-    private KeyAudioRecorderUtil audioRecorderUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.b_main_act).setOnClickListener(v -> startActivity(new Intent(this, SpeechActivity.class)));
+        findViewById(R.id.b_main_act).setOnClickListener(v -> startActivity(new Intent(this, TestActivity.class)));
 
-        audioRecorderUtil = new KeyAudioRecorderUtil(this,Environment.getExternalStorageDirectory() + "/aKey/");
+        toLog("status: " + Environment.getExternalStorageState() + "   path: " + Environment.getExternalStorageDirectory());
     }
 
     public void start(View view) {
-        audioRecorderUtil.startRecord();
+
+        KeySPUtil.save("abc");
+        Logger.e(KeySPUtil.get());
     }
 
     public void stop(View view) {
-        audioRecorderUtil.stopRecord();
+        new Thread(() -> {
+            KeySPUtil.init(this);
+            KeySPUtil.save("cba");
+            Logger.e(KeySPUtil.get());
+        }).start();
     }
 
-    public void play(View view) {
-
+    public void toLog(String msg) {
+        Log.e("aaa", "" + msg);
     }
 }

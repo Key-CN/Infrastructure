@@ -21,6 +21,7 @@
             android:name=".speech.SpeechActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoActionBarTheme.FullScreen" />
+        <activity android:name=".TestActivity" />
     </application>
 
 </manifest>

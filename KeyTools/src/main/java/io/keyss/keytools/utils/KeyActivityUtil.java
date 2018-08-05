@@ -66,6 +66,7 @@ public class KeyActivityUtil {
 
     /**
      * 已启动的Activity中是否包含这种类名的Activity
+     *
      * @param clazz 类
      * @return Activity
      */
@@ -139,11 +140,13 @@ public class KeyActivityUtil {
      * 要求最低API为11
      * Activity 跳转
      * 跳转后Finish之前所有的Activity
+     *
      * @param context 上下文
-     * @param goal 要去的类
-     * @param bundle 数据
+     * @param goal    要去的类
+     * @param bundle  数据
      */
     public static void skipActivityAndFinishAll(Context context, Class<?> goal, Bundle bundle) {
+        activityStack.clear();
         Intent intent = new Intent(context, goal);
         intent.putExtras(bundle);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -155,10 +158,12 @@ public class KeyActivityUtil {
      * 要求最低API为11
      * Activity 跳转
      * 跳转后Finish之前所有的Activity
+     *
      * @param context 上下文
-     * @param goal 要去的类
+     * @param goal    要去的类
      */
     public static void skipActivityAndFinishAll(Context context, Class<?> goal) {
+        activityStack.clear();
         Intent intent = new Intent(context, goal);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);

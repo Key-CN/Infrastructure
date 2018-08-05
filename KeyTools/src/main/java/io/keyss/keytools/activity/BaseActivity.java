@@ -26,7 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        KeyActivityUtil.addActivity(this);
+        KeyActivityUtil.addActivity(mContext = this);
         int contentViewId = getContentViewId();
         if (contentViewId != 0) {
             setContentView(contentViewId);
@@ -39,8 +39,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 initTitle();
             }
         }
-
-        mContext = this;
         //mRxPermissions = new RxPermissions(this);
         //mProgressDialog = new RxDialogLoading(mContext);
 
