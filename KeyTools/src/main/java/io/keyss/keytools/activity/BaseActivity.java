@@ -16,7 +16,7 @@ import io.keyss.keytools.utils.KeyActivityUtil;
 /**
  * @author Key
  * Time: 2018/6/27 11:59
- * Description: 最底层基类
+ * Description: ButterKnife版 最底层基类
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
